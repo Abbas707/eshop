@@ -1,8 +1,7 @@
 ## To setup the project in Docker
 
 ```sh
-$ git clone <repo-url>
-$ cd <path-to-docker-compose-file>
+$ git clone https://github.com/Abbas707/eshop.git
 $ sudo docker-compose up --build -d
 ```
 
