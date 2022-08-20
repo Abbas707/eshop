@@ -1,0 +1,34 @@
+version: "3"
+
+services: 
+
+  db:
+    image: postgres:14
+    restart: always
+    container_name: eshop_db
+    expose:
+      - 5432
+    volumes:
+      - ./postgres_db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: eshop
+
+  eshop:
+    build: 
+      context: .
+    ports:
+      - 8001:8001
+    volumes:
+      - ./E-SHOP:/E-SHOP
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8001"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=eshop
+    depends_on:
+      - db
